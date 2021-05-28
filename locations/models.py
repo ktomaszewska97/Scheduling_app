@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Locations_Rooms(models.Model):
@@ -16,4 +17,4 @@ class Locations_Events(models.Model):
 
 class Locations_Locations(models.Model):
     name = models.CharField(max_length=255)
-    owner_id = models.ForeignKey('accounts.Account_Users', on_delete=models.CASCADE)
+    owner_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner_id')
