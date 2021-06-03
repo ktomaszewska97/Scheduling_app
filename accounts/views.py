@@ -1,21 +1,14 @@
-from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
-from .forms import SignUpForm
-from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+class LoginView(DjangoLoginView):
+    template_name = "accounts/login.html"
 
 
-def signup_view(request):
-    form = SignUpForm(request.POST)
-    if form.is_valid():
-        user = form.save()
-        login(request, user)
-        messages.success(request, "Registration successful.")
-        return redirect("main:homepage")
-    messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = SignUpForm
-    return render(request, 'templates/accounts/register.html', {'signup_form': form})
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = "accounts/register.html"
+    success_url = reverse_lazy("accounts:login")

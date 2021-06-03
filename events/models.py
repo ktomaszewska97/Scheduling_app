@@ -1,14 +1,20 @@
-from django.db import models
+from uuid import uuid4
+
 from django.contrib.auth.models import User
+from django.db import models
 
 
-class Events_Members(models.Model):
-    role = models.CharField(max_length=45)
-    events_events_id = models.ForeignKey('Events_Events', on_delete=models.CASCADE)
-    accounts_users_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='accounts_users_id')
+class Event(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    name = models.CharField(max_length=255)
+    owner_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_owner_id")  # Rename to owner
+
+    def __str__(self):
+        return self.name
 
 
-class Events_Events(models.Model):
-    name = models.CharField(max_length=45)
-    owner_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='event_owner_id')
-    locations_rooms_id = models.ForeignKey('locations.Locations_Rooms', on_delete=models.CASCADE)
+class Members(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    role = models.CharField(max_length=255)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)  # Rename to user

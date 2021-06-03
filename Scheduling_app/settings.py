@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'crispy_forms',
 ]
 
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'Scheduling_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, '/templates/']
+        'DIRS': [os.path.join(BASE_DIR,'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -127,4 +128,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

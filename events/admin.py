@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Events_Events, Events_Members
+from events.models import Event, Members
 
-admin.site.register(Events_Events)
-admin.site.register(Events_Members)
+
+class EventAdmin(admin.ModelAdmin):
+    pass
+
+
+class MembersAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Event, EventAdmin)
+admin.site.register(Members, MembersAdmin)

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Create location</title>
+</head>
+{% load crispy_forms_tags %}
+
+<div class="container py-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ location.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Owner: {{ location.owner_id.username }}</h6>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Rooms</h5>
+
+            <a href="{% url "locations:room-create" location.id %}" class="card-link">Add new room</a>
+
+            <ul>
+                {% for room in location.room_set.all %}
+                <li>{{ room.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</html>
