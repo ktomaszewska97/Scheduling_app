@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
+import datetime
 
 from events.forms import EventForm
 from events.models import Event
@@ -25,3 +26,17 @@ class EventCreate(CreateView):
 class EventDetail(DetailView):
     model = Event
     template_name = "events/detail.html"
+
+
+class IndexView(ListView):
+    #model = Event
+    context_object_name = 'event-list'
+    template_name = "events/list.html"
+    queryset = Event.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['events'] = Event.objects.all()
+        context['date'] = datetime.datetime.now()
+        # the rest of the models
+        return context

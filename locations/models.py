@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.db import models
+from events.models import Event
 
 
 class Location(models.Model):
@@ -21,5 +22,6 @@ class Room(models.Model):
 class Schedule(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE) # added event to the model
     occupied_from = models.DateTimeField()
     occupied_to = models.DateTimeField()

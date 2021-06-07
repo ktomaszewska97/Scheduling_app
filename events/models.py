@@ -7,6 +7,7 @@ from django.db import models
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
     name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True) # added description
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="event_owner_id")  # Rename to owner
 
     def __str__(self):
