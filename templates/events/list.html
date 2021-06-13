@@ -9,35 +9,41 @@
     <title>Events list | Main page</title>
 </head>
 <div class="container" style="margin-top: 20px">
-  <div class="row">
-    <div class="col">
-        <button type="button" class="btn btn-secondary btn-lg btn-block"><i class="fas fa-calendar-alt"></i> Events</button>
-        <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-user-friends"></i> My profile</button>
-    </div>
-    <div class="col-6">
-<h1>All events</h1>
-{% for event in object_list %}
-<div class="card" style="width: 25rem;">
-  <div class="card-body">
-    <h5 class="card-title">{{ event.name }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Hosted by: {{ event.owner_id.username }}</h6>
-    <p class="card-text">{{ event.description }}</p>
-      <!-- add number of participants -->
-    <a href="{% url "events:event-detail" event.id %}" type="button" class="btn btn-outline-primary">Details</a>
-    <button type="button" class="btn btn-outline-danger">Delete</button>
-  </div>
-</div>
-{% empty %}
-    <li>No events yet.</li>
-{% endfor %}
-    </div>
-    <div class="col">
-        <div class="card text-white text-center bg-primary mb-3" style="max-width: 18rem; padding: 15px;">
-            <h5 class="card-title">{{ date }}</h5>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-secondary btn-lg btn-block"><i class="fas fa-calendar-alt"></i> Events
+            </button>
+            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-user-friends"></i> My
+                profile
+            </button>
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-plus-circle"></i> New meeting</button>
+        <div class="col-6">
+            <h1>All events</h1>
+            {% for event in object_list %}
+                <div class="card" style="width: 25rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Hosted by: {{ event.owner_id.username }}</h6>
+                        <p class="card-text">{{ event.description }}</p>
+                        <!-- add number of participants -->
+                        <a href="{% url "events:event-detail" event.id %}" type="button"
+                           class="btn btn-outline-primary">Details</a>
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+            {% empty %}
+                <li>No events yet.</li>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <div class="card text-white text-center bg-primary mb-3" style="max-width: 18rem; padding: 15px;">
+                <h5 class="card-title">{{ date }}</h5>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-plus-circle"></i> New
+                meeting
+            </button>
+        </div>
     </div>
-  </div>
 </div>
 
 </html>
