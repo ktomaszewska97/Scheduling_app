@@ -30,7 +30,7 @@ class EventDetail(DetailView):
 
 class ScheduleCreate(CreateView):
     form_class = ScheduleForm
-    template_name = "schedule/create.html"
+    template_name = "events/create.html"
 
     def get_success_url(self):
         return reverse_lazy("events:event-detail", kwargs={"pk": self.kwargs["pk"]})

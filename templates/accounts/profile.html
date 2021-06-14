@@ -11,11 +11,11 @@
 <div class="container" style="margin-top: 20px">
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-calendar-alt"></i> Events
-            </button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block"><i class="fas fa-user-friends"></i> My
+            <a href="{% url "events:event-list" %}" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-calendar-alt"></i> Events
+            </a>
+            <a href="{% url "accounts:profile-view" %}" type="button" class="btn btn-secondary btn-lg btn-block"><i class="fas fa-user-friends"></i> My
                 profile
-            </button>
+            </a>
         </div>
         <div class="col">
             <h1>My profile</h1>
@@ -34,16 +34,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-5">
             <h1>My meetings</h1>
             {% for event in events %}
-                <div class="card" style="width: 25rem;">
+                <div class="card" style="width: 28rem;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ event.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Hosted by: {{ event.owner_id.username }}</h6>
-                    <p class="card-text">{{ event.description }}</p>
-                    <a href="#" type="button"
-                       class="btn btn-outline-primary">Start meeting now</a>
+                    <h5 class="card-title">{{ event.event.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Hosted by: {{ event.event.owner_id.username }} </h6>
+                    <h6 class="card-subtitle mb-2 text-muted"> {{ event.occupied_from }} - {{ event.occupied_to }} </h6>
+                    <p class="card-text">{{ event.event.description }}</p>
+
                 </div>
             {% empty %}
                 <li>No events yet.</li>

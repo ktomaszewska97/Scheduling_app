@@ -3,10 +3,11 @@ from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.db import transaction
-from django.views.generic import CreateView, FormView
-from events.models import Event
+from django.views.generic import CreateView, FormView, DetailView
+from events.models import Event, Schedule
 from accounts.forms import TeamCreateForm
 from accounts.models import Team, TeamMember
+from django.contrib.auth.models import User
 
 
 class LoginView(DjangoLoginView):
@@ -78,10 +79,12 @@ class TeamUpdateView(FormView):
 
 def profile_view(request):
     user = request.user
-    event = Event.objects.all().filter(owner_id=user.id)
+    event = Schedule.objects.select_related('event').filter(event__owner_id=user.id)
+
     context = {
         'user': user,
         'events': event,
+        #'schedule': schedule,
     }
     template = 'accounts/profile.html'
     return render(request, template, context)
