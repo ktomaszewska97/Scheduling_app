@@ -1,14 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=255)
-    last_name = forms.CharField(max_length=255)
-    email = forms.EmailField(max_length=255)
-    role = forms.CharField(max_length=255)
-
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'role', 'password1', 'password2',)
+class TeamCreateForm(forms.Form):
+    name = forms.CharField(required=True)
+    members = forms.ModelMultipleChoiceField(
+        queryset=User.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )

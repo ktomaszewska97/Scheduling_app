@@ -28,5 +28,19 @@
             </ul>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Schedule</h5>
+
+            <a href="{% url "events:schedule-crete" event.id %}" class="card-link">Book new room</a>
+
+            <ul>
+                {% for schedule in event.schedule_set.all %}
+                <li>{{ schedule.room.name }} {{ schedule.occupied_from }} - {{ schedule.occupied_to }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>
 </html>

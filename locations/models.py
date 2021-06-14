@@ -2,13 +2,15 @@ from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.db import models
-from events.models import Event
 
 
 class Location(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
     owner_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) # rename owner_id => owner
     name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Room(models.Model):
@@ -18,10 +20,5 @@ class Room(models.Model):
     size = models.IntegerField(null=True)
     status = models.CharField(max_length=255)
 
-
-class Schedule(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE) # added event to the model
-    occupied_from = models.DateTimeField()
-    occupied_to = models.DateTimeField()
+    def __str__(self):
+        return f"{self.location}: {self.name} ({self.size})"

@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
 import datetime
 
-from events.forms import EventForm
+from events.forms import EventForm, ScheduleForm
 from events.models import Event
 
 
@@ -26,6 +26,22 @@ class EventCreate(CreateView):
 class EventDetail(DetailView):
     model = Event
     template_name = "events/detail.html"
+
+
+class ScheduleCreate(CreateView):
+    form_class = ScheduleForm
+    template_name = "schedule/create.html"
+
+    def get_success_url(self):
+        return reverse_lazy("events:event-detail", kwargs={"pk": self.kwargs["pk"]})
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.event_id = self.kwargs["pk"]
+
+        self.object.save()
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class IndexView(ListView):
