@@ -3,10 +3,12 @@ from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.db import transaction
-from django.views.generic import CreateView, FormView, DetailView
-from events.models import Event, Schedule
+from django.views.generic import CreateView, FormView
+from events.models import Schedule
 from accounts.forms import TeamCreateForm
 from accounts.models import Team, TeamMember
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 class LoginView(DjangoLoginView):
@@ -83,7 +85,6 @@ def profile_view(request):
     context = {
         'user': user,
         'events': event,
-        #'schedule': schedule,
     }
     template = 'accounts/profile.html'
     return render(request, template, context)
