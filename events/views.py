@@ -1,10 +1,11 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
 import datetime
 
 from events.forms import EventForm, ScheduleForm
-from events.models import Event
+from events.models import Event, Members
 
 
 class EventCreate(CreateView):
@@ -56,3 +57,15 @@ class IndexView(ListView):
         context['date'] = datetime.datetime.now()
         # the rest of the models
         return context
+
+
+def notifications(request):
+    user = request.user
+    event = Members.objects.select_related('event').filter(user_id=user.id)
+
+    context = {
+        'user': user,
+        'events': event,
+    }
+    template = 'events/notifications.html'
+    return render(request, template, context)

@@ -7,7 +7,6 @@ from django.views.generic import CreateView, FormView, DetailView
 from events.models import Event, Schedule
 from accounts.forms import TeamCreateForm
 from accounts.models import Team, TeamMember
-from django.contrib.auth.models import User
 
 
 class LoginView(DjangoLoginView):
