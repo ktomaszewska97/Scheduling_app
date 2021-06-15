@@ -88,3 +88,8 @@ def profile_view(request):
     }
     template = 'accounts/profile.html'
     return render(request, template, context)
+
+
+def index(request):
+    context = {}
+    return render(request, 'accounts/main.html', context)
